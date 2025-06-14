@@ -123,7 +123,7 @@ project(":jcachex-spring") {
         implementation("org.jetbrains.kotlin:kotlin-stdlib")
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.springframework.boot:spring-boot-starter:2.7.18")
-        implementation("org.springframework.boot:spring-boot-configuration-processor:2.7.18")
+        implementation("org.springframework.boot:spring-boot-configuration-processor:3.5.0")
 
         // Testing
         testImplementation("org.jetbrains.kotlin:kotlin-test")
