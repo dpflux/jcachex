@@ -6,7 +6,7 @@ plugins {
     id("jacoco")
     id("maven-publish")
     id("signing")
-    id("org.sonarqube") version "4.4.1.3373"
+
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
     id("org.jetbrains.dokka") version "1.9.10" apply false
 }
@@ -32,32 +32,7 @@ nexusPublishing {
     }
 }
 
-// SonarQube configuration
-sonarqube {
-    properties {
-        property("sonar.projectKey", "dpflux_jcachex")
-        property("sonar.organization", "dpflux")
-        property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.coverage.jacoco.xmlReportPaths", "**/build/reports/jacoco/test/jacocoTestReport.xml")
-        property("sonar.coverage.exclusions", "**/test/**")
-        property("sonar.java.source", "8")
-        property("sonar.java.target", "8")
-        property("sonar.sourceEncoding", "UTF-8")
-        // Ensure SonarQube scanner uses the system Java
-        property("sonar.scanner.javaHome", System.getProperty("java.home"))
-        // Skip implicit compilation (recommended for version 5.x compatibility)
-        property("sonar.gradle.skipCompile", "true")
-    }
-}
 
-// Configure SonarQube to use system Java for plugin execution
-tasks.named("sonar") {
-    // This ensures SonarQube uses the system Java (21) while keeping compilation on Java 8
-    doFirst {
-        println("Running SonarQube with Java: ${System.getProperty("java.version")}")
-        println("Java Home: ${System.getProperty("java.home")}")
-    }
-}
 
 subprojects {
     apply(plugin = "java")
