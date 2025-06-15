@@ -6,7 +6,7 @@ plugins {
     id("jacoco")
     id("maven-publish")
     id("signing")
-    id("org.sonarqube") version "4.0.0.2929"
+    id("org.sonarqube") version "4.4.1.3373"
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
     id("org.jetbrains.dokka") version "1.9.10" apply false
 }
@@ -43,6 +43,10 @@ sonarqube {
         property("sonar.java.source", "8")
         property("sonar.java.target", "8")
         property("sonar.sourceEncoding", "UTF-8")
+        // Ensure SonarQube scanner uses the system Java
+        property("sonar.scanner.javaHome", System.getProperty("java.home"))
+        // Skip implicit compilation (recommended for version 5.x compatibility)
+        property("sonar.gradle.skipCompile", "true")
     }
 }
 
@@ -51,6 +55,7 @@ tasks.named("sonar") {
     // This ensures SonarQube uses the system Java (21) while keeping compilation on Java 8
     doFirst {
         println("Running SonarQube with Java: ${System.getProperty("java.version")}")
+        println("Java Home: ${System.getProperty("java.home")}")
     }
 }
 
