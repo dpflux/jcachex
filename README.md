@@ -1,7 +1,7 @@
 # JCacheX
 
 [![CI](https://github.com/dpflux/JCacheX/workflows/CI/badge.svg)](https://github.com/dpflux/JCacheX/actions)
-[![codecov](https://codecov.io/gh/dpflux/JCacheX/branch/main/graph/badge.svg)](https://codecov.io/gh/dpflux/JCacheX)
+[![codecov](https://codecov.io/gh/dpflux/jcachex/graph/badge.svg?token=U26SDMG294)](https://codecov.io/gh/dpflux/jcachex)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dpflux_JCacheX&metric=alert_status)](https://sonarcloud.io/dashboard?id=dpflux_JCacheX)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.dpflux/jcachex-core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.dpflux/jcachex-core)
 [![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://dpflux.github.io/JCacheX/)
