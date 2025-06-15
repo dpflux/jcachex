@@ -6,7 +6,7 @@ plugins {
     id("jacoco")
     id("maven-publish")
     id("signing")
-    id("org.sonarqube") version "4.0.0.2929"
+    id("org.sonarqube") version "3.4.0.2513"
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
     id("org.jetbrains.dokka") version "1.9.10" apply false
 }
@@ -40,6 +40,9 @@ sonarqube {
         property("sonar.host.url", "https://sonarcloud.io")
         property("sonar.coverage.jacoco.xmlReportPaths", "**/build/reports/jacoco/test/jacocoTestReport.xml")
         property("sonar.coverage.exclusions", "**/test/**")
+        property("sonar.java.source", "8")
+        property("sonar.java.target", "8")
+        property("sonar.sourceEncoding", "UTF-8")
     }
 }
 

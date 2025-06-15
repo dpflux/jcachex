@@ -1,8 +1,6 @@
 package io.github.dpflux.jcachex.spring
 
 import java.lang.annotation.Inherited
-import java.lang.annotation.Retention
-import java.lang.annotation.RetentionPolicy
 import java.util.concurrent.TimeUnit
 
 /**
@@ -18,7 +16,7 @@ import java.util.concurrent.TimeUnit
  * @property maximumSize The maximum number of entries in the cache
  */
 @Target(AnnotationTarget.FUNCTION)
-@Retention(RetentionPolicy.RUNTIME)
+@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
 @Inherited
 annotation class JCacheXCacheable(
     val cacheName: String = "",

@@ -1,8 +1,6 @@
 package io.github.dpflux.jcachex.spring
 
 import java.lang.annotation.Inherited
-import java.lang.annotation.Retention
-import java.lang.annotation.RetentionPolicy
 
 /**
  * Annotation that indicates a method should trigger a cache eviction.
@@ -15,7 +13,7 @@ import java.lang.annotation.RetentionPolicy
  * @property beforeInvocation Whether to evict before the method is invoked
  */
 @Target(AnnotationTarget.FUNCTION)
-@Retention(RetentionPolicy.RUNTIME)
+@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
 @Inherited
 annotation class JCacheXCacheEvict(
     val cacheName: String = "",
