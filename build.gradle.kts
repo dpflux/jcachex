@@ -307,7 +307,7 @@ project(":jcachex-core") {
 
         // Testing
         testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
-        testImplementation("org.mockito:mockito-core:5.8.0")
+        testImplementation("org.mockito:mockito-core:4.11.0")
     }
 }
 
@@ -323,8 +323,8 @@ project(":jcachex-kotlin") {
         // Testing
         testImplementation("org.jetbrains.kotlin:kotlin-test")
         testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
-        testImplementation("org.mockito:mockito-core:5.8.0")
-        testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
+        testImplementation("org.mockito:mockito-core:4.11.0")
+        testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
     }
 }
 
@@ -342,7 +342,7 @@ project(":jcachex-spring") {
         testImplementation("org.jetbrains.kotlin:kotlin-test")
         testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
         testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.18")
-        testImplementation("org.mockito:mockito-core:5.8.0")
-        testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
+        testImplementation("org.mockito:mockito-core:4.11.0")
+        testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
     }
 }
