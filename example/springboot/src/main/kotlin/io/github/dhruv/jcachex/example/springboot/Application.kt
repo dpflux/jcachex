@@ -1,6 +1,6 @@
-package io.github.dhruv.jcachex.example.springboot
+package io.github.dpflux.jcachex.example.springboot
 
-import io.github.dhruv.jcachex.spring.EnableJCacheX
+import io.github.dpflux.jcachex.spring.EnableJCacheX
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.cache.annotation.Cacheable

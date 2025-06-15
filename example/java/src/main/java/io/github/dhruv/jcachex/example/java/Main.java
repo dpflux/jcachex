@@ -1,13 +1,13 @@
-package io.github.dhruv.jcachex.example.java;
+package io.github.dpflux.jcachex.example.java;
 
-import io.github.dhruv.jcachex.Cache;
-import io.github.dhruv.jcachex.CacheBuilder;
-import io.github.dhruv.jcachex.CacheConfig;
-import io.github.dhruv.jcachex.CacheEventListener;
-import io.github.dhruv.jcachex.CacheStats;
-import io.github.dhruv.jcachex.EvictionReason;
-import io.github.dhruv.jcachex.EvictionStrategy;
-import io.github.dhruv.jcachex.LRUEvictionStrategy;
+import io.github.dpflux.jcachex.Cache;
+import io.github.dpflux.jcachex.CacheBuilder;
+import io.github.dpflux.jcachex.CacheConfig;
+import io.github.dpflux.jcachex.CacheEventListener;
+import io.github.dpflux.jcachex.CacheStats;
+import io.github.dpflux.jcachex.EvictionReason;
+import io.github.dpflux.jcachex.EvictionStrategy;
+import io.github.dpflux.jcachex.LRUEvictionStrategy;
 
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
