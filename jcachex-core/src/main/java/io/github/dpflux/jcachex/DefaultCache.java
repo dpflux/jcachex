@@ -16,24 +16,41 @@ import java.util.stream.Collectors;
 
 /**
  * Default implementation of the Cache interface.
+ * This implementation is thread-safe and supports various cache configurations
+ * including eviction strategies, expiration policies, and event listeners.
  *
  * @param <K> the type of keys maintained by this cache
  * @param <V> the type of mapped values
  */
-public class DefaultCache<K, V> implements Cache<K, V> {
+public class DefaultCache<K, V> implements Cache<K, V>, AutoCloseable {
     private final CacheConfig<K, V> config;
     private final ConcurrentHashMap<K, CacheEntry<V>> entries;
     private final CacheStats stats;
     private final EvictionStrategy<K, V> evictionStrategy;
     private final ScheduledExecutorService scheduler;
+    private static final long REFRESH_INTERVAL_SECONDS = 1L;
 
+    /**
+     * Creates a new DefaultCache with the specified configuration.
+     *
+     * @param config the cache configuration to use
+     * @throws IllegalArgumentException if config is null
+     */
     public DefaultCache(CacheConfig<K, V> config) {
+        if (config == null) {
+            throw new IllegalArgumentException("Cache configuration cannot be null");
+        }
+
         this.config = config;
         this.entries = new ConcurrentHashMap<>();
         this.stats = new CacheStats();
         this.evictionStrategy = config.getEvictionStrategy() != null ? config.getEvictionStrategy()
                 : new LRUEvictionStrategy<K, V>();
-        this.scheduler = Executors.newSingleThreadScheduledExecutor();
+        this.scheduler = Executors.newSingleThreadScheduledExecutor(r -> {
+            Thread thread = new Thread(r, "jcachex-scheduler");
+            thread.setDaemon(true);
+            return thread;
+        });
 
         if (config.getRefreshAfterWrite() != null) {
             scheduleRefresh();
@@ -42,6 +59,10 @@ public class DefaultCache<K, V> implements Cache<K, V> {
 
     @Override
     public V get(K key) {
+        if (key == null) {
+            return null;
+        }
+
         CacheEntry<V> entry = entries.get(key);
         if (entry != null) {
             if (entry.isExpired()) {
@@ -61,6 +82,10 @@ public class DefaultCache<K, V> implements Cache<K, V> {
 
     @Override
     public void put(K key, V value) {
+        if (key == null) {
+            return;
+        }
+
         CacheEntry<V> entry = createEntry(value);
         CacheEntry<V> oldEntry = entries.put(key, entry);
         if (oldEntry != null) {
@@ -73,6 +98,10 @@ public class DefaultCache<K, V> implements Cache<K, V> {
 
     @Override
     public V remove(K key) {
+        if (key == null) {
+            return null;
+        }
+
         CacheEntry<V> entry = entries.remove(key);
         if (entry != null) {
             notifyListeners(listener -> listener.onRemove(key, entry.getValue()));
@@ -95,6 +124,9 @@ public class DefaultCache<K, V> implements Cache<K, V> {
 
     @Override
     public boolean containsKey(K key) {
+        if (key == null) {
+            return false;
+        }
         return entries.containsKey(key);
     }
 
@@ -237,14 +269,28 @@ public class DefaultCache<K, V> implements Cache<K, V> {
                     CompletableFuture.runAsync(() -> loadValue(key));
                 }
             });
-        }, 0, 1, TimeUnit.SECONDS);
+        }, 0, REFRESH_INTERVAL_SECONDS, TimeUnit.SECONDS);
     }
 
     private void notifyListeners(java.util.function.Consumer<CacheEventListener<K, V>> action) {
         config.getListeners().forEach(action);
     }
 
+    /**
+     * Closes this cache and releases any resources associated with it.
+     * This method should be called when the cache is no longer needed
+     * to prevent resource leaks.
+     */
+    @Override
     public void close() {
         scheduler.shutdown();
+        try {
+            if (!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {
+                scheduler.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            scheduler.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
     }
 }

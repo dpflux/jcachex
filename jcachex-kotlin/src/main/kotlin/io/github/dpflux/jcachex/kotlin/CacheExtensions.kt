@@ -36,11 +36,10 @@ fun <K, V> Cache<K, V>.getOrDefault(
  *
  * @param action the action to perform on each entry
  */
-@Suppress("UnusedParameter")
 fun <K, V> Cache<K, V>.forEach(action: (K, V) -> Unit) {
-    // Note: This is a placeholder implementation
-    // Actual implementation would depend on how entries are stored in the cache
-    // and would need to be implemented by concrete cache classes
+    entries().forEach { entry ->
+        action(entry.key, entry.value)
+    }
 }
 
 /**
@@ -48,21 +47,11 @@ fun <K, V> Cache<K, V>.forEach(action: (K, V) -> Unit) {
  *
  * @return a list of all keys
  */
-fun <K, V> Cache<K, V>.keys(): List<K> {
-    // Note: This is a placeholder implementation
-    // Actual implementation would depend on how entries are stored in the cache
-    // and would need to be implemented by concrete cache classes
-    return emptyList()
-}
+fun <K, V> Cache<K, V>.keysList(): List<K> = keys().toList()
 
 /**
  * Returns a list of all values in the cache.
  *
  * @return a list of all values
  */
-fun <K, V> Cache<K, V>.values(): List<V> {
-    // Note: This is a placeholder implementation
-    // Actual implementation would depend on how entries are stored in the cache
-    // and would need to be implemented by concrete cache classes
-    return emptyList()
-}
+fun <K, V> Cache<K, V>.valuesList(): List<V> = values().toList()

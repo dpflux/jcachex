@@ -1,7 +1,6 @@
 package io.github.dpflux.jcachex.example.java;
 
 import io.github.dpflux.jcachex.Cache;
-import io.github.dpflux.jcachex.CacheBuilder;
 import io.github.dpflux.jcachex.CacheConfig;
 import io.github.dpflux.jcachex.CacheEventListener;
 import io.github.dpflux.jcachex.CacheStats;
@@ -17,7 +16,7 @@ import java.util.concurrent.Executors;
 public class Main {
     public static void main(String[] args) {
         // Create a cache with LRU eviction
-        Cache<String, String> cache = CacheBuilder.<String, String>newBuilder()
+        Cache<String, String> cache = CacheConfig.<String, String>newBuilder()
             .maximumSize(100)
             .expireAfterWrite(Duration.ofMinutes(5))
             .evictionStrategy(new LRUEvictionStrategy<>())
