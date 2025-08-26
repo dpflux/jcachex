@@ -140,7 +140,7 @@ jobs:
 
       - name: Upload to GitHub Pages
         if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.publish_to_pages)
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: docs/
 
